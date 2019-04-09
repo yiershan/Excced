@@ -1083,6 +1083,74 @@ namespace Exceed.Migrations
                     b.ToTable("AbpTenants");
                 });
 
+            modelBuilder.Entity("Exceed.PageSettings.ArticlePage.ArticlePage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Article");
+
+                    b.Property<int>("ArticleClass");
+
+                    b.Property<int>("ArticleType");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<string>("Desc");
+
+                    b.Property<string>("Image");
+
+                    b.Property<string>("Key");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<int>("LikeCount");
+
+                    b.Property<int>("ScanCount");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("UnLikeCount");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArticlePages");
+                });
+
+            modelBuilder.Entity("Exceed.PageSettings.HomePage.HomePage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activities");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<string>("Examples");
+
+                    b.Property<string>("ImgCircleNavs");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<string>("PetCircleNavs");
+
+                    b.Property<string>("PetMoreNavs");
+
+                    b.Property<int>("PublishType");
+
+                    b.Property<string>("SliderImgs");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomePages");
+                });
+
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>
                 {
                     b.HasBaseType("Abp.Application.Features.FeatureSetting");

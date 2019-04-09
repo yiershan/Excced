@@ -13,4 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Exceed.Core\Exceed.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PageSettings\HomePage\Dtos\" />
+  </ItemGroup>
 </Project>
