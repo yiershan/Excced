@@ -4,14 +4,16 @@ using Exceed.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Exceed.Migrations
 {
     [DbContext(typeof(ExceedDbContext))]
-    partial class ExceedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190410021308_article1")]
+    partial class article1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

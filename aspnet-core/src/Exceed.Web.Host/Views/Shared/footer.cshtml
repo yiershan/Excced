@@ -1,0 +1,23 @@
+﻿@using Abp.Configuration
+@using Newtonsoft.Json;
+@using Exceed.Web.Host.ViewModels.Excced;
+@using Exceed.Configuration;
+@inject ISettingManager SettingManager
+@{
+    var appInfo = JsonConvert.DeserializeObject<AppInfo>(SettingManager.GetSettingValueAsync(AppSettingNames.AppInfo).Result);
+}
+<div class="pet_article_dowload pet_dowload_more_top_off">
+    <div class="pet_article_dowload_title">关于 @appInfo.Name</div>
+    <div class="pet_article_dowload_content pet_dowload_more_top_bg">
+        <div class="pet_article_dowload_triangle pet_dowload_more_top_san"></div>
+        <div class="pet_article_dowload_ico"><img src="img/footdon.png" alt=""></div>
+        <div class="pet_article_dowload_content_font">
+            @appInfo.Desc
+        </div>
+        <div class="pet_article_dowload_all">
+            <a href="###" class="pet_article_dowload_Az am-icon-apple"> App store</a>
+            <a href="###" class="pet_article_dowload_Pg am-icon-android"> Android</a>
+        </div>
+    </div>
+    <div class="pet_article_footer_info">Copyright(c)2019 yiershan</div>
+</div>

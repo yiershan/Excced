@@ -1,0 +1,35 @@
+﻿
+@await Html.PartialAsync("~/Views/Shared/moreNavList.cshtml")
+@if (string.IsNullOrEmpty(Model))
+{
+    <div class="pet_head">
+        <header data-am-widget="header" class="am-header am-header-default">
+            <div class="am-header-left am-header-nav ">
+                <a href="javascript:;" class="iconfont pet_head_jt_ico j_go_back">&#xe601;</a>
+            </div>
+            <div class="am-header-right am-header-nav">
+                <a href="javascript:;" class="iconfont pet_head_gd_ico">&#xe600;</a>
+            </div>
+        </header>
+    </div>
+}
+else
+{
+    <header data-am-widget="header" class="am-header am-header-default">
+        <h1 class="am-header-title">
+            <a href="/" class="">
+                @Model
+            </a>
+        </h1>
+    </header>
+}
+
+<script>
+        $('.pet_head_gd_ico').on('click', function () {
+            $('.am-menu-toggle').click();
+        });
+        $('.j_go_back').on('click', function () {
+            window.history.back(-1);
+        });
+</script>
+

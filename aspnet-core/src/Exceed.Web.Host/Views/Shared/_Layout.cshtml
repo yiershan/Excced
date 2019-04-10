@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="@ViewBag.Desc" />
+    <link rel="stylesheet" href="/Content/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Content/css/wap.css">
+    @RenderSection("styles", required: false)
+    <script src="/Content/js/jquery.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="pet_mian" id="top">
+        @RenderBody()
+        @await Html.PartialAsync("~/Views/Shared/footer.cshtml")
+    </div>
+        <script src="/Content/js/amazeui.min.js"></script>
+        @RenderSection("scripts", required: false)
+</body>
+</html>

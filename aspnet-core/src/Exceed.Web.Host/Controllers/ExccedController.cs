@@ -22,9 +22,10 @@ namespace Exceed.Web.Host.Controllers
             _articlePageOpenService = articlePageOpenService; 
             _appConfiguration = env.GetAppConfiguration();
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.AppInfo = JsonConvert.DeserializeObject<AppInfo>(SettingManager.GetSettingValueAsync(AppSettingNames.AppInfo).Result); ;
+            ViewBag.AppInfo = JsonConvert.DeserializeObject<AppInfo>(SettingManager.GetSettingValueAsync(AppSettingNames.AppInfo).Result);
             var data = _openService.GetHomePage();
             var result = new HomePageViewModel(data)
             {
@@ -32,9 +33,10 @@ namespace Exceed.Web.Host.Controllers
             };
             return View(result);
         }
+        [HttpGet]
         public IActionResult Article(string key) {
             var result = _articlePageOpenService.GetArticlePageByKey(key);
-            return View(result);
+            return View(new ArticlePageViewModel(result));
         }
     }
 }

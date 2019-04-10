@@ -1,52 +1,19 @@
 ﻿@model Exceed.Web.Host.ViewModels.Excced.ArticlePageViewModel
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="@Model.Desc" />
-    <link rel="stylesheet" href="/Content/css/amazeui.min.css">
-    <link rel="stylesheet" href="/Content/css/wap.css">
-    <title>@Model.Title</title>
-</head>
-<body style="background:#ececec">
-    <div class="pet_mian">
-        <div class="pet_head">
-            <header data-am-widget="header" class="am-header am-header-default pet_head_block">
-                <div class="am-header-left am-header-nav ">
-                    <a href="javascript:;" class="iconfont pet_head_jt_ico">&#xe601;</a>
-                </div>
-                <div class="am-header-right am-header-nav">
-                    <a href="javascript:;" class="iconfont pet_head_gd_ico">&#xe600;</a>
-                </div>
-            </header>
-        </div>
-
-        <div class="pet_content">
-            <div class="pet_content_block">
-                <article data-am-widget="paragraph" class="am-paragraph am-paragraph-default pet_content_article" data-am-paragraph="{ tableScrollable: true, pureview: true }">
-                    @Html.Raw(Model.Article)
-                </article>
-                <ul class="like_share_block">
-                    <li><a class="link_share_button" href="###"><i class="iconfont share_ico_link">&#xe62f;</i>@Model.ScanCount</a></li>
-                    <li><a class="link_share_button" href="###"><i class="iconfont share_ico_wx">&#xe630;</i>@Model.LikeCount</a></li>
-                    <li><a class="link_share_button" href="###"><i class="iconfont share_ico_pyq">&#xe62e;</i>@Model.UnLikeCount</a></li>
-                </ul>
-            </div>
-            <div class="pet_article_footer_info">Copyright(c)2019 yiershan</div>
-        </div>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.Title;
+    ViewBag.Desc = Model.Desc;
+}
+@await Html.PartialAsync("~/Views/Shared/header.cshtml", "")
+<div class="pet_content">
+    <div class="pet_content_block">
+        <article data-am-widget="paragraph" class="am-paragraph am-paragraph-default pet_content_article" data-am-paragraph="{ tableScrollable: true, pureview: true }">
+            @Html.Raw(Model.Article)
+        </article>
+        <ul class="like_share_block">
+            <li><a class="link_share_button" href="###"><i class="iconfont share_ico_link">&#xe62f;</i>@Model.ScanCount</a></li>
+            <li><a class="link_share_button" href="###"><i class="iconfont share_ico_wx">&#xe630;</i>@Model.LikeCount</a></li>
+            <li><a class="link_share_button" href="###"><i class="iconfont share_ico_pyq">&#xe62e;</i>@Model.UnLikeCount</a></li>
+        </ul>
     </div>
-    <script src="/Content/js/jquery.min.js"></script>
-    <script src="/Content/js/amazeui.min.js"></script>
-    <script>
-        $(function () {
-
-            $('.pet_head_gd_ico').on('click', function () {
-                $('.pet_more_list').addClass('pet_more_list_show');
-            });
-        });
-
-    </script>
-</body>
-</html>
+</div>

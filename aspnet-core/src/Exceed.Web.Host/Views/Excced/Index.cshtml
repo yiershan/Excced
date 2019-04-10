@@ -1,13 +1,10 @@
 ﻿@model Exceed.Web.Host.ViewModels.Excced.HomePageViewModel
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/Content/css/amazeui.min.css">
-    <link rel="stylesheet" href="/Content/css/wap.css">
-    <title>@ViewBag.AppInfo.Name</title>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ViewBag.AppInfo.Name;
+    ViewBag.Desc = ViewBag.AppInfo.Desc;
+}
+@section styles {
     <style>
         .ImgCircleNavs {
             width: 100%;
@@ -15,200 +12,134 @@
             margin-top: 10px;
         }
     </style>
-</head>
-<body>
-    <div data-am-widget="gotop" class="am-gotop am-gotop-fixed">
-        <a href="#top" title="返回顶部">
-            <img class="am-gotop-icon-custom" src="/img/goTop.png" />
-        </a>
-    </div>
-    <div class="pet_mian" id="top">
-        <header data-am-widget="header" class="am-header am-header-default">
-            <h1 class="am-header-title">
-                <a href="#title-link" class="">
-                    @ViewBag.AppInfo.Name
+}
+@section scripts {
+    <script>
+        $(function () {
+            $('.pet_nav_gengduo').on('click', function () {
+                $('.am-menu-toggle').click();
+            });
+        });
+
+    </script>
+}
+
+@await Html.PartialAsync("~/Views/Shared/gotop.cshtml")
+@await Html.PartialAsync("~/Views/Shared/header.cshtml", (object)ViewBag.AppInfo.Name)
+@*顶部滚动图片开始*@
+<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}'>
+    <ul class="am-slides">
+        @foreach (var slider in Model.SliderImgs)
+        {
+            <li>
+                <a href="@slider.LinkUrl" class="">
+                    <img src="@(Model.ImgHost + slider.ImgUrl)">
                 </a>
-            </h1>
-        </header>
-        @*顶部滚动图片开始*@
-        <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}'>
-            <ul class="am-slides">
-                @foreach (var slider in Model.SliderImgs)
-                {
-                    <li> <img src="@(Model.ImgHost + slider.ImgUrl)"></li>
-                }
-            </ul>
+            </li>
+        }
+    </ul>
+</div>
+@*顶部滚动图片结束*@
+<div class="pet_content_main">
+    @*导航菜单开始*@
+    <ul class="pet_circle_nav_list">
+        @foreach (var nav in Model.PetCircleNavs)
+        {
+            <li><a href="@nav.LinkUrl" class="iconfont @nav.ClassStyle ">@Html.Raw(nav.Icon)</a><span>@nav.Title</span></li>
+        }
+        <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
+    </ul>
+    @*导航菜单结束*@
+    @*图片展示+导航菜单开始*@
+    <div class="am-g">
+        <div class="am-u-sm-6">
+            @if (Model.ImgCircleNavs[0] != null)
+            {
+                <a href="@Model.ImgCircleNavs[0].LinkUrl"> <img src="@Model.ImgCircleNavs[0].Icon" class="ImgCircleNavs" /></a>
+            }
+            @if (Model.ImgCircleNavs[1] != null)
+            {
+                <a href="@Model.ImgCircleNavs[1].LinkUrl"> <img src="@Model.ImgCircleNavs[1].Icon" class="ImgCircleNavs" /></a>
+            }
         </div>
-        @*顶部滚动图片结束*@
+        <div class="am-u-sm-6">
+            @if (Model.ImgCircleNavs[2] != null)
+            {
+                <a href="@Model.ImgCircleNavs[2].LinkUrl"> <img src="@Model.ImgCircleNavs[2].Icon" class="ImgCircleNavs" /></a>
+            }
+        </div>
+        <div class="am-u-sm-12">
+            @if (Model.ImgCircleNavs[3] != null)
+            {
+                <a href="@Model.ImgCircleNavs[3].LinkUrl"> <img src="@Model.ImgCircleNavs[3].Icon" class="ImgCircleNavs" /></a>
+            }
+        </div>
+    </div>
+    @*图片展示+导航菜单结束*@
 
+    <h1>@Model.Examples.Title</h1>
+    <span>@Model.Examples.Desc</span>
 
-        @*导航菜单开始*@
-
-
-            <div class="pet_more_list">
-                <nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1"
-                     data-am-menu-offcanvas>
-                    <a href="javascript: void(0)" class="am-menu-toggle">
-                        <i class="am-menu-toggle-icon am-icon-bars"></i>
-                    </a>
-
-                    <div class="am-offcanvas">
-                        <div class="am-offcanvas-bar am-offcanvas-bar-flip">
-
-                            <ul class="am-menu-nav am-avg-sm-1">
-                                @foreach (var nav in Model.PetMoreNavs)
-                                {
-                                    <li class=""><a href="@nav.LinkUrl" class="">@nav.Title</a></li>
-                                }
-                            </ul>
-                        </div>
+    <div class="am-list-news-bd">
+        @if (Model.Examples.Items[0] != null)
+        {
+            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-gallery-overlay" data-am-gallery="{ pureview: true }">
+                <li>
+                    <div class="am-gallery-item">
+                        <a href="@Model.Examples.Items[0].LinkUrl" class="">
+                            <img src="@Model.Examples.Items[0].Icon" alt="@Model.Examples.Items[0].Title" />
+                            <h3 class="am-gallery-title">@Model.Examples.Items[0].Title</h3>
+                            <div class="am-gallery-desc">@Model.Examples.Items[0].Desc</div>
+                        </a>
                     </div>
-                </nav>
-            </div>
-
-
-        @*导航菜单结束*@
-        @*图片展示+导航菜单开始*@
-        <div class="pet_content_main">
-            <ul class="pet_circle_nav_list">
-                @foreach (var nav in Model.PetCircleNavs)
-                {
-                    <li><a href="@nav.LinkUrl" class="iconfont @nav.ClassStyle ">@Html.Raw(nav.Icon)</a><span>@nav.Title</span></li>
-                }
-                <li><a href="javascript:;" class="iconfont pet_nav_gengduo ">&#xe600;</a><span>更多</span></li>
+                </li>
             </ul>
-            <div class="am-g">
-                <div class="am-u-sm-6">
-                    @if (Model.ImgCircleNavs[0] != null)
-                    {
-                        <a href="@Model.ImgCircleNavs[0].LinkUrl"> <img src="@Model.ImgCircleNavs[0].Icon" class="ImgCircleNavs" /></a>
-                    }
-                    @if (Model.ImgCircleNavs[1] != null)
-                    {
-                        <a href="@Model.ImgCircleNavs[1].LinkUrl"> <img src="@Model.ImgCircleNavs[1].Icon" class="ImgCircleNavs" /></a>
-                    }
-                </div>
-                <div class="am-u-sm-6">
-                    @if (Model.ImgCircleNavs[2] != null)
-                    {
-                        <a href="@Model.ImgCircleNavs[2].LinkUrl"> <img src="@Model.ImgCircleNavs[2].Icon" class="ImgCircleNavs" /></a>
-                    }
-                </div>
-                <div class="am-u-sm-12">
-                    @if (Model.ImgCircleNavs[3] != null)
-                    {
-                        <a href="@Model.ImgCircleNavs[3].LinkUrl"> <img src="@Model.ImgCircleNavs[3].Icon" class="ImgCircleNavs" /></a>
-                    }
-                </div>
-            </div>
-        </div>
-        @*图片展示+导航菜单结束*@
-        <div class="pet_content_main">
-            <h1>@Model.Examples.Title</h1>
-            <span>@Model.Examples.Desc</span>
+        }
+        <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-default" data-am-gallery="{ pureview: true }">
+            @for (int i = 1; i < Model.Examples.Items.Count; i++)
+            {
+                <li>
+                    <div class="am-gallery-item">
+                        <a href="@Model.Examples.Items[i].LinkUrl" class="">
+                            <img src="@Model.Examples.Items[i].Icon" alt="@Model.Examples.Items[i].Title" />
+                            <h3 class="am-gallery-title">@Model.Examples.Items[i].Title</h3>
+                            <div class="am-gallery-desc">@Model.Examples.Items[i].Desc</div>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
 
+
+    @foreach (var activitie in Model.Activities)
+    {
+        <h1>@activitie.Title</h1>
+        <span>@activitie.Desc</span>
+
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default">
             <div class="am-list-news-bd">
-                @if (Model.Examples.Items[0] != null)
-                {
-                    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-1 am-gallery-overlay" data-am-gallery="{ pureview: true }">
-                        <li>
-                            <div class="am-gallery-item">
-                                <a href="@Model.Examples.Items[0].LinkUrl" class="">
-                                    <img src="@Model.Examples.Items[0].Icon" alt="@Model.Examples.Items[0].Title" />
-                                    <h3 class="am-gallery-title">@Model.Examples.Items[0].Title</h3>
-                                    <div class="am-gallery-desc">@Model.Examples.Items[0].Desc</div>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                }
-                <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-default" data-am-gallery="{ pureview: true }">
-                    @for (int i = 1; i < Model.Examples.Items.Count; i++)
+                <ul class="am-list">
+                    @foreach (var item in activitie.Items)
                     {
-                        <li>
-                            <div class="am-gallery-item">
-                                <a href="@Model.Examples.Items[i].LinkUrl" class="">
-                                    <img src="@Model.Examples.Items[i].Icon" alt="@Model.Examples.Items[i].Title" />
-                                    <h3 class="am-gallery-title">@Model.Examples.Items[i].Title</h3>
-                                    <div class="am-gallery-desc">@Model.Examples.Items[i].Desc</div>
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_list_one_block">
+                            <div class=" am-u-sm-8 am-list-main pet_list_one_nr">
+                                <h3 class="am-list-item-hd pet_list_one_bt"><a href="@item.LinkUrl" class="">@item.Title</a></h3>
+                                <div class="am-list-item-text pet_list_one_text">@item.Desc</div>
+                            </div>
+                            <div class="am-u-sm-4 am-list-thumb">
+                                <a href="@item.LinkUrl" class="">
+                                    <img src="@item.Icon" class="pet_list_one_img" alt="@item.Title" />
                                 </a>
                             </div>
                         </li>
                     }
                 </ul>
             </div>
-            @foreach (var activitie in Model.Activities)
-            {
-                <h1>@activitie.Title</h1>
-                <span>@activitie.Desc</span>
 
-                <div data-am-widget="list_news" class="am-list-news am-list-news-default">
-                    <div class="am-list-news-bd">
-                        <ul class="am-list">
-                            @foreach (var item in activitie.Items)
-                            {
-                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_list_one_block">
-                                    <div class=" am-u-sm-8 am-list-main pet_list_one_nr">
-                                        <h3 class="am-list-item-hd pet_list_one_bt"><a href="@item.LinkUrl" class="">@item.Title</a></h3>
-                                        <div class="am-list-item-text pet_list_one_text">@item.Desc</div>
-                                    </div>
-                                    <div class="am-u-sm-4 am-list-thumb">
-                                        <a href="@item.LinkUrl" class="">
-                                            <img src="@item.Icon" class="pet_list_one_img" alt="@item.Title" />
-                                        </a>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-
-                </div>
-            }
-            <div class="pet_article_dowload pet_dowload_more_top_off">
-                <div class="pet_article_dowload_title">关于 @ViewBag.AppInfo.Name</div>
-                <div class="pet_article_dowload_content pet_dowload_more_top_bg">
-                    <div class="pet_article_dowload_triangle pet_dowload_more_top_san"></div>
-                    <div class="pet_article_dowload_ico"><img src="img/footdon.png" alt=""></div>
-                    <div class="pet_article_dowload_content_font">
-                        @ViewBag.AppInfo.Desc
-                    </div>
-                    <div class="pet_article_dowload_all">
-                        <a href="###" class="pet_article_dowload_Az am-icon-apple"> App store</a>
-                        <a href="###" class="pet_article_dowload_Pg am-icon-android"> Android</a>
-                    </div>
-                </div>
-                <div class="pet_article_footer_info">Copyright(c)2019 yiershan</div>
-            </div>
         </div>
-    </div>
-        <script src="/Content/js/jquery.min.js"></script>
-        <script src="/Content/js/amazeui.min.js"></script>
-        <script>
-            $(function () {
+    }
+</div>
 
-                // 动态计算新闻列表文字样式
-                auto_resize();
-                $(window).resize(function () {
-                    auto_resize();
-                });
-                $('.am-list-thumb img').load(function () {
-                    auto_resize();
-                });
 
-                $('.am-list > li:last-child').css('border', 'none');
-                function auto_resize() {
-                    $('.pet_list_one_nr').height($('.pet_list_one_img').height());
 
-                }
-                $('.pet_nav_gengduo').on('click', function () {
-                    $('.am-menu-toggle').click();
-                    //$('.pet_more_list').addClass('pet_more_list_show');
-                });
-                $('.pet_more_close').on('click', function () {
-                    $('.pet_more_list').removeClass('pet_more_list_show');
-                });
-            });
-
-        </script>
-</body>
-</html>

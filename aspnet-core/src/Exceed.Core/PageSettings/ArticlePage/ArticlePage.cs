@@ -22,7 +22,7 @@ namespace Exceed.PageSettings.ArticlePage
         /// <summary>
         /// guid,用于查找代替主键
         /// </summary>
-        public string Key { get; set; }
+        public string FindKey { get; set; }
         public string Title { get; set; }
         public string Desc { get; set; }
         public string Image { get; set; }

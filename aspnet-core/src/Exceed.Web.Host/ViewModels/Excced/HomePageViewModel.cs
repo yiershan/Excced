@@ -14,6 +14,7 @@ namespace Exceed.Web.Host.ViewModels.Excced
     public class SliderImg
     {
         public string ImgUrl { get; set; }
+        public string LinkUrl { get; set; }
         public string Desc { get; set; }
     }
     public class PetNav
@@ -44,7 +45,6 @@ namespace Exceed.Web.Host.ViewModels.Excced
         {
             this.SliderImgs = JsonConvert.DeserializeObject<List<SliderImg>>(homePage == null ? "[]" : homePage.SliderImgs ?? "[]");
             this.PetCircleNavs = JsonConvert.DeserializeObject<List<PetNav>>(homePage == null ? "[]" : homePage.PetCircleNavs ?? "[]");
-            this.PetMoreNavs = JsonConvert.DeserializeObject<List<PetNav>>(homePage == null ? "[]" : homePage.PetMoreNavs ?? "[]");
             this.ImgCircleNavs = JsonConvert.DeserializeObject<List<PetNav>>(homePage == null ? "[]" : homePage.ImgCircleNavs ?? "[]");
             this.Examples = JsonConvert.DeserializeObject<Examples>(homePage == null ? "{}" : homePage.Examples ?? "{}");
             if(this.Examples.Items == null)this.Examples.Items = new List<PetNav>();

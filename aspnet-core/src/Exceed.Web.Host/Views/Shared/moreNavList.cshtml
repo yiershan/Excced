@@ -1,0 +1,30 @@
+﻿@using System.Collections.Generic;
+@using Exceed.PageSettings.HomePage;
+@using Newtonsoft.Json;
+@using Exceed.Web.Host.ViewModels.Excced;
+@inject IHomePageOpenService _openService;
+@{
+    var homePage = _openService.GetHomePage();
+    var menus = JsonConvert.DeserializeObject<List<PetNav>>(homePage == null ? "[]" : homePage.PetMoreNavs ?? "[]");
+}
+
+<div class="pet_more_list">
+    <nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1"
+         data-am-menu-offcanvas>
+        <a href="javascript: void(0)" class="am-menu-toggle">
+            <i class="am-menu-toggle-icon am-icon-bars"></i>
+        </a>
+
+        <div class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+
+                <ul class="am-menu-nav am-avg-sm-1">
+                    @foreach (var nav in menus)
+                    {
+                        <li class=""><a href="@nav.LinkUrl" class="">@nav.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

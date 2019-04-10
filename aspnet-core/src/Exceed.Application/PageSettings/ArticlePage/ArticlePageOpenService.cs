@@ -15,7 +15,7 @@ namespace Exceed.PageSettings.ArticlePage
 
         public ArticlePage GetArticlePageByKey(string key)
         {
-            return _articlePageRepository.GetAll().Where(m => m.Key == key).FirstOrDefault();
+            return _articlePageRepository.GetAll().Where(m => m.FindKey == key).FirstOrDefault();
         }
     }
 }
